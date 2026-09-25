@@ -1,9 +1,9 @@
-import React from 'react';
+import Banner from '@/components/homepage/banner';
 
 const WorkoutsPage = () => {
     return (
         <div>
-            <h2>All Workouts</h2>
+            <Banner></Banner>
         </div>
     );
 };
