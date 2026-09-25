@@ -52,6 +52,7 @@ const Navbar = () => {
 
         {/* ===> Right Actions <=== */}
         <div className="hidden items-center gap-5 md:flex">
+         
           {/* ===> Plan <=== */}
           <Link
             href="/plan"
@@ -76,9 +77,13 @@ const Navbar = () => {
             </span>
           </Link>
         </div>
+
+
         {/* ===> Mobile Menu <=== */}
         <details className="dropdown dropdown-end md:hidden">
           <summary className="btn btn-ghost btn-sm list-none border-0 p-2 text-slate-300 hover:bg-white/5 hover:text-white">
+
+          
             {/* ===> Hamburger <=== */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
