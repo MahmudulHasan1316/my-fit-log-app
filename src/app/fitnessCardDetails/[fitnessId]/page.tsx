@@ -1,3 +1,20 @@
+import FitnessDetailsCard from "@/components/fitnessDetailsCard";
+
+type FitnessCard = {
+  id: number;
+  name: string;
+  description: string;
+  image?: string;
+  category?: string;
+  equipment?: string;
+  difficulty?: string;
+  sets?: number;
+  reps?: string;
+  duration?: string;
+  calories?: string | number;
+  rating?: number;
+};
+
 const FitnessCardDetailsPage = async ({
   params,
 }: {
@@ -5,23 +22,32 @@ const FitnessCardDetailsPage = async ({
 }) => {
   const { fitnessId } = await params;
 
-  const res = await fetch("https://api.abcz.workers.dev/api/fitlog");
-  const fitnessCardDetails = await res.json();
+  const response = await fetch("https://api.abcz.workers.dev/api/fitlog", {
+    cache: "no-store",
+  });
 
-  const fitnessCard = fitnessCardDetails.find(
-    (fitnessCard: { id: number }) => fitnessCard.id === parseInt(fitnessId),
+  const fitnessCards: FitnessCard[] = await response.json();
+
+  const fitnessCard = fitnessCards.find(
+    (card) => card.id === Number(fitnessId),
   );
 
+  if (!fitnessCard) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-black">
+        <h1 className="text-2xl font-bold text-white">
+          Fitness Card Not Found
+        </h1>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h2>This is Fitness Card Details Page</h2>
-
-      <p>Post ID: {fitnessId}</p>
-
-      <h3>{fitnessCard ?.name}</h3>
-
-      <p>{fitnessCard ?.description}</p>
-    </div>
+    <main className="min-h-screen bg-[#090b0e] p-4 sm:p-6 lg:p-10">
+      <div className="mx-auto max-w-7xl">
+        <FitnessDetailsCard fitnessCard={fitnessCard} />
+      </div>
+    </main>
   );
 };
 
