@@ -38,11 +38,12 @@ const Banner = () => {
             lg:py-12
           "
           >
-            {/* =========================
-              LEFT CONTENT
-          ========================== */}
+
+            {/* ===> LEFT CONTENT <=== */}
             <div className="order-2 md:order-1">
-              {/* Small label */}
+
+
+              {/* ===> Small label <=== */}
               <p
                 className="
                 mb-3
@@ -58,7 +59,8 @@ const Banner = () => {
                 Workout Library
               </p>
 
-              {/* Heading */}
+
+              {/* ===> Heading <=== */}
               <h1
                 className="
                 max-w-xl
@@ -76,7 +78,8 @@ const Banner = () => {
                 TRAIN WITH INTENT. LOG <br/> EVERY SET.
               </h1>
 
-              {/* Description */}
+
+              {/* ===> Description <=== */}
               <p
                 className="
                 mt-5
@@ -93,7 +96,6 @@ const Banner = () => {
                 into today&apos;s plan, and watch the week&apos;s work add up.
               </p>
 
-              {/* CTA */}
               <div className="mt-6 sm:mt-8">
                 <Link
                   href="/workouts"
@@ -122,9 +124,8 @@ const Banner = () => {
               </div>
             </div>
 
-            {/* =========================
-              RIGHT IMAGE
-          ========================== */}
+
+            {/* ===> RIGHT IMAGE <=== */}
             <div
               className="
               order-1

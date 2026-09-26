@@ -55,7 +55,7 @@ const Navbar = () => {
          
           {/* ===> Plan <=== */}
           <Link
-            href="/plan"
+            href="/myplan"
             className="group flex items-center gap-2 text-xs text-slate-400 transition-colors hover:text-white"
           >
             <span>Plan</span>
@@ -67,7 +67,7 @@ const Navbar = () => {
 
           {/* ===> Saved <=== */}
           <Link
-            href="/saved"
+            href="/myplan"
             className="group flex items-center gap-2 text-xs text-slate-400 transition-colors hover:text-white"
           >
             <span>Saved</span>

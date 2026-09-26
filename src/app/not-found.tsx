@@ -19,15 +19,8 @@ const NotfoundPage = () => {
 
         <div className="mt-6 flex flex-col justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
           <Link
-            href="/"
-            className="btn w-full border-0 bg-emerald-500 px-6 text-white shadow-lg shadow-emerald-500/20 transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-600 hover:shadow-xl hover:shadow-emerald-500/30 sm:w-auto"
-          >
-            Go to Dashboard
-          </Link>
-
-          <Link
             href="/workouts"
-            className="btn w-full border-slate-300 bg-white px-6 text-slate-700 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-slate-400 hover:bg-slate-50 hover:shadow-lg sm:w-auto"
+            className="btn w-full border-slate-300 bg-lime-400 px-6 text-slate-700 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-slate-400 hover:bg-slate-50 hover:shadow-lg sm:w-auto"
           >
             View Workouts
           </Link>
