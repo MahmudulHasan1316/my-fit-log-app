@@ -12,4 +12,7 @@ export interface FitnessType  {
   rating: number
   description: string
   instructions: string[]
+  calories : number
+  completed : boolean
+  category : string
 }

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+
+import Image from "next/image";
+import FitnessDetailActions from "./fitnessdetailactions";
 
 type FitnessCard = {
   id: number;
@@ -23,8 +24,6 @@ type Props = {
 };
 
 const FitnessDetailsCard = ({ fitnessCard }: Props) => {
-  const [isSaved, setIsSaved] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
 
   return (
     <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#111418] text-white shadow-2xl">
@@ -32,13 +31,15 @@ const FitnessDetailsCard = ({ fitnessCard }: Props) => {
         {/* IMAGE */}
         <div className="p-4 sm:p-6">
           <div className="relative h-100 overflow-hidden rounded-xl sm:h-137.5 lg:h-162.5">
-            <img
+            <Image
               src={
                 fitnessCard.image ||
                 "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1000&q=80"
               }
               alt={fitnessCard.name}
-              className="h-full w-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
             />
 
             <div className="absolute left-4 top-4 rounded-full bg-black/50 px-4 py-2 text-xs font-bold backdrop-blur">
@@ -89,54 +90,10 @@ const FitnessDetailsCard = ({ fitnessCard }: Props) => {
             <Info title="Rating" value={`⭐ ${fitnessCard.rating || 4.8}`} />
           </div>
 
-          {/* BUTTONS */}
-          <>
-            <ToastContainer
-              position="top-right"
-              autoClose={2500}
-              theme="dark"
-            />
-
-            <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#111418]">
-              {/* your card content */}
-
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsAdded(!isAdded);
-
-                    if (!isAdded) {
-                      toast.success("Exercise added to today's plan!");
-                    } else {
-                      toast.info("Exercise removed from today's plan.");
-                    }
-                  }}
-                  className={`btn flex-1 border-0 ${
-                    isAdded ? "bg-white text-black" : "bg-[#c6ff00] text-black"
-                  }`}
-                >
-                  {isAdded ? "Added to today's plan" : "Add to today's plan"}
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsSaved(!isSaved);
-
-                    if (!isSaved) {
-                      toast.success("Exercise saved for later!");
-                    } else {
-                      toast.info("Exercise removed from saved items.");
-                    }
-                  }}
-                  className="btn border-white/10 bg-transparent text-white"
-                >
-                  {isSaved ? "✓ Saved" : " Save for later"}
-                </button>
-              </div>
-            </div>
-          </>
+          {/* FITNESS ACTION BUTTONS */}
+          <div className="mt-7">
+            <FitnessDetailActions fitnessId={String(fitnessCard.id)} />
+          </div>
         </div>
       </div>
     </div>
