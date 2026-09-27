@@ -3,11 +3,14 @@
 
 
 import { useFitnessPlan } from "@/context/fitnessplancontext";
+import { BookmarkPlus, CalendarPlus } from "lucide-react";
 import { toast } from "react-toastify";
 
-interface FitnessDetailActionsProps {
+type FitnessDetailActionsProps = {
   fitnessId: string;
-}
+  onAddToPlan: () => void;
+  onSaveForLater: () => void;
+};
 
 const FitnessDetailActions = ({ fitnessId }: FitnessDetailActionsProps) => {
   const { plannedIds, savedIds, addToPlan, saveForLater } = useFitnessPlan();
@@ -43,11 +46,12 @@ const FitnessDetailActions = ({ fitnessId }: FitnessDetailActionsProps) => {
         onClick={handleAddToPlan}
         className={`btn btn-sm flex-1 rounded-lg border-0 px-4 ${
           isPlanned
-            ? "bg-white text-black"
-            : "bg-[#c6ff00] text-black hover:bg-[#b5eb00]"
+            ? "bg-lime-400 text-black"
+            : "bg-[#c9cac4] text-blue-700 hover:bg-white"
         }`}
       >
-        {isPlanned ? "✓ Added to Today's Plan" : "Add to Today's Plan"}
+        <CalendarPlus size={20} />
+        {isPlanned ? " Added to Today's Plan" : "Add to Today's Plan"}
       </button>
 
       {/* Save for Later */}
@@ -60,7 +64,8 @@ const FitnessDetailActions = ({ fitnessId }: FitnessDetailActionsProps) => {
             : "btn-outline border-white/20 text-white hover:bg-white/10"
         }`}
       >
-        {isSaved ? "✓ Saved" : "♡ Save for Later"}
+        <BookmarkPlus size={20} />
+        {isSaved ? " Saved" : " Save for Later"}
       </button>
     </div>
   );
