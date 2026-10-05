@@ -10,9 +10,8 @@ const Banner = () => {
           mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10"
       >
         <div
-          className="max-w-7xl
-          overflow-hidden
-          rounded-2xl
+          className="overflow-hidden
+          rounded-2xl mt-30
           border border-slate-800
           bg-[#14161b]
           shadow-2xl

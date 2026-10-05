@@ -1,168 +1,213 @@
+// 
+
+
+
+
 "use client";
 
-import {
-  addToPlan,
-  addToSaved,
-} from "@/lib/fitness-storage";
-
 import Image from "next/image";
+import Link from "next/link";
+
+import {
+  CalendarCheck,
+  Bookmark,
+  Clock3,
+  Flame,
+  Star,
+} from "lucide-react";
 
 import { FitnessType } from "@/fitness-type";
 
-import FitnessDetailActions from "./fitnessdetailactions";
+import { useFitnessPlan } from "@/context/fitnessplancontext";
 
-type Props = {
-  fitnessCard: FitnessType;
-};
+interface FitnessDetailsProps {
+  workout: FitnessType;
+}
 
-const FitnessDetailsCard = ({ fitnessCard }: Props) => {
-  // -----------------------------------------
-  // ADD TO TODAY'S PLAN
-  // -----------------------------------------
-  const handleAddToPlan = () => {
-    const added = addToPlan(fitnessCard);
-
-    if (added) {
-      console.log("Added to today's plan");
-    } else {
-      console.log("Already in today's plan");
-    }
-  };
-
-  // -----------------------------------------
-  // SAVE FOR LATER
-  // -----------------------------------------
-  const handleSaveForLater = () => {
-    const saved = addToSaved(fitnessCard);
-
-    if (saved) {
-      console.log("Saved for later");
-    } else {
-      console.log("Already saved");
-    }
-  };
+export default function FitnessDetails({
+  workout,
+}: FitnessDetailsProps) {
+  const {
+    addToPlan,
+    saveForLater,
+  } = useFitnessPlan();
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#111418] text-white shadow-2xl">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+    <section className="min-h-screen bg-[#0d0f12] px-4 py-8">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-[1fr_1.05fr]">
 
-        {/* IMAGE */}
-        <div className="p-4 sm:p-6">
-          <div className="relative h-100 overflow-hidden rounded-xl sm:h-137.5 lg:h-162.5">
-            <Image
-              src={
-                fitnessCard.image ||
-                "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1000&q=80"
-              }
-              alt={fitnessCard.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
+        {/* ========================= */}
+        {/* LEFT IMAGE */}
+        {/* ========================= */}
 
-            <div className="absolute left-4 top-4 rounded-full bg-black/50 px-4 py-2 text-xs font-bold backdrop-blur">
-              Exercise #{fitnessCard.id}
-            </div>
-          </div>
+        <div className="relative min-h-\[450px\] overflow-hidden rounded-xl lg:min-h-162.5">
+          <Image
+            src={workout.image}
+            alt={workout.name}
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover object-center"
+          />
         </div>
 
-        {/* DETAILS */}
-        <div className="flex flex-col p-4 sm:p-6 lg:p-10">
+        {/* ========================= */}
+        {/* RIGHT CONTENT */}
+        {/* ========================= */}
 
-          {/* NAME */}
-          <h1 className="text-3xl font-black uppercase sm:text-4xl">
-            {fitnessCard.name}
+        <div className="flex flex-col">
+
+          {/* Title */}
+          <h1 className="text-3xl font-black uppercase tracking-tight text-white sm:text-4xl">
+            {workout.name}
           </h1>
 
-          {/* DESCRIPTION */}
-          <p className="mt-4 text-sm leading-6 text-gray-400">
-            {fitnessCard.description}
+          {/* Description */}
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
+            {workout.description}
           </p>
 
-          {/* CATEGORY */}
-          <div className="mt-5">
-            <span className="rounded-full bg-[#c6ff00] px-4 py-2 text-xs font-bold uppercase text-black">
-              {fitnessCard.category || "Fitness"}
-            </span>
+          {/* Muscle groups */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {workout.muscleGroups.map((muscle) => (
+              <span
+                key={muscle}
+                className="rounded-full bg-lime-400 px-3 py-1 text-xs font-bold text-black"
+              >
+                {muscle}
+              </span>
+            ))}
           </div>
 
-          {/* INFORMATION */}
-          <div className="mt-6 overflow-hidden rounded-xl border border-white/10 bg-[#171b20]">
+          {/* ========================= */}
+          {/* SPECS */}
+          {/* ========================= */}
 
-            <Info
-              title="Equipment"
-              value={fitnessCard.equipment || "Not specified"}
+          <div className="mt-5 overflow-hidden rounded-xl border border-zinc-800 bg-[#15171b]">
+
+            <SpecRow
+              label="EQUIPMENT"
+              value={workout.equipment}
             />
 
-            <Info
-              title="Difficulty"
-              value={fitnessCard.difficulty || "Intermediate"}
+            <SpecRow
+              label="DIFFICULTY"
+              value={workout.difficulty}
             />
 
-            <Info
-              title="Sets"
-              value={fitnessCard.sets || 4}
+            <SpecRow
+              label="SETS"
+              value={String(workout.sets)}
             />
 
-            <Info
-              title="Reps"
-              value={fitnessCard.reps || "8-12"}
+            <SpecRow
+              label="REPS"
+              value={workout.reps}
             />
 
-            <Info
-              title="Duration"
-              value={fitnessCard.duration || "25 min"}
+            <SpecRow
+              label="DURATION"
+              value={`${workout.duration} min`}
             />
 
-            <Info
-              title="Calories"
-              value={fitnessCard.calories || "180 kcal"}
+            <SpecRow
+              label="CALORIES"
+              value={`${workout.caloriesBurned} kcal`}
             />
 
-            <Info
-              title="Rating"
-              value={`⭐ ${fitnessCard.rating || 4.8}`}
+            <SpecRow
+              label="RATING"
+              value={String(workout.rating)}
+              last
             />
 
           </div>
 
-          {/* FITNESS ACTION BUTTONS */}
-          <div className="mt-7">
-            <FitnessDetailActions
-              fitnessId={String(fitnessCard.id)}
-              onAddToPlan={handleAddToPlan}
-              onSaveForLater={handleSaveForLater}
-            />
+          {/* ========================= */}
+          {/* INSTRUCTIONS */}
+          {/* ========================= */}
+
+          <div className="mt-6">
+            <h2 className="text-sm font-bold tracking-wide text-white">
+              INSTRUCTIONS
+            </h2>
+
+            <ol className="mt-3 space-y-3">
+              {workout.instructions.map(
+                (instruction, index) => (
+                  <li
+                    key={index}
+                    className="flex gap-3 text-sm leading-5 text-zinc-400"
+                  >
+                    <span className="text-zinc-500">
+                      {index + 1}.
+                    </span>
+
+                    <span>{instruction}</span>
+                  </li>
+                )
+              )}
+            </ol>
+          </div>
+
+          {/* ========================= */}
+          {/* BUTTONS */}
+          {/* ========================= */}
+
+          <div className="mt-7 flex flex-wrap gap-3">
+
+            <button
+              onClick={() => addToPlan(String(workout.id))}
+              className="flex items-center gap-2 rounded-lg bg-lime-400 px-5 py-3 text-sm font-bold text-black transition hover:bg-lime-300"
+            >
+              <CalendarCheck size={16} />
+
+              Add to today&apos;s plan
+            </button>
+
+            <button
+              onClick={() => saveForLater(String(workout.id))}
+              className="flex items-center gap-2 rounded-lg border border-zinc-700 px-5 py-3 text-sm text-zinc-200 transition hover:border-lime-400 hover:text-lime-400"
+            >
+              <Bookmark size={16} />
+
+              Save for later
+            </button>
+
           </div>
 
         </div>
       </div>
-    </div>
+    </section>
   );
-};
+}
 
-export default FitnessDetailsCard;
+/* ========================= */
+/* SPEC ROW COMPONENT */
+/* ========================= */
 
-/* -------------------------------
-   INFORMATION ROW
--------------------------------- */
-
-const Info = ({
-  title,
+function SpecRow({
+  label,
   value,
+  last = false,
 }: {
-  title: string;
-  value: string | number;
-}) => {
+  label: string;
+  value: string;
+  last?: boolean;
+}) {
   return (
-    <div className="flex min-h-13.75 items-center justify-between border-b border-white/5 px-4 last:border-0 sm:px-5">
-      <span className="text-xs font-bold uppercase tracking-wider text-gray-500">
-        {title}
+    <div
+      className={`flex items-center justify-between px-4 py-3 ${
+        !last ? "border-b border-zinc-800" : ""
+      }`}
+    >
+      <span className="text-[10px] font-medium tracking-wider text-zinc-500">
+        {label}
       </span>
 
-      <span className="text-sm text-gray-200">
+      <span className="text-xs text-zinc-200">
         {value}
       </span>
     </div>
   );
-};
+}

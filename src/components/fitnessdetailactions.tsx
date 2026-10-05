@@ -1,6 +1,4 @@
-
 "use client";
-
 
 import { useFitnessPlan } from "@/context/fitnessplancontext";
 import { BookmarkPlus, CalendarPlus } from "lucide-react";
@@ -41,31 +39,31 @@ const FitnessDetailActions = ({ fitnessId }: FitnessDetailActionsProps) => {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       {/* Add to Today's Plan */}
+
       <button
         type="button"
         onClick={handleAddToPlan}
-        className={`btn btn-sm flex-1 rounded-lg border-0 px-4 ${
+        className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-200 ${
           isPlanned
-            ? "bg-lime-400 text-black"
-            : "bg-[#c9cac4] text-blue-700 hover:bg-white"
+            ? "bg-[#c9cac4] text-black hover:bg-lime-200"
+            : "bg-lime-400 text-black hover:bg-white"
         }`}
       >
         <CalendarPlus size={20} />
-        {isPlanned ? " Added to Today's Plan" : "Add to Today's Plan"}
+        {isPlanned ? "Added to Today's Plan" : "Add to Today's Plan"}
       </button>
 
-      {/* Save for Later */}
       <button
         type="button"
         onClick={handleSaveForLater}
-        className={`btn btn-sm rounded-lg px-4 ${
+        className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-200 ${
           isSaved
-            ? "btn-success"
-            : "btn-outline border-white/20 text-white hover:bg-white/10"
+            ? "bg-lime-400 text-black hover:bg-green-200"
+            : "border border-white/20 bg-transparent text-white hover:bg-white/10"
         }`}
       >
         <BookmarkPlus size={20} />
-        {isSaved ? " Saved" : " Save for Later"}
+        {isSaved ? "Saved" : "Save for Later"}
       </button>
     </div>
   );

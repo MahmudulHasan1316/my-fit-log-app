@@ -1,6 +1,5 @@
 "use client";
 
-
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/assets/logo.png";
@@ -12,13 +11,9 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-[#000000]">
-
-      {/* 👇 Replace your old <nav> with your new <nav> */}
-      <nav className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-
+      <nav className="container mx-auto flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Desktop layout */}
         <div className="flex flex-1 items-center justify-between gap-2">
-
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -34,7 +29,6 @@ const Navbar = () => {
 
           {/* Desktop navigation links */}
           <div className="hidden items-center gap-2 md:flex">
-
             <Link
               href="/workouts"
               className={
@@ -56,21 +50,17 @@ const Navbar = () => {
             >
               My Plan
             </Link>
-
           </div>
 
           {/* Plan and Saved counters */}
           <div className="hidden items-center gap-5 md:flex">
             <FitnessNavActions />
           </div>
-
         </div>
 
         {/* Mobile menu */}
         <details className="dropdown dropdown-end md:hidden">
-
           <summary className="btn btn-ghost btn-sm list-none border-0 p-2 text-slate-300 hover:bg-white/5 hover:text-white">
-
             {/* Hamburger */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -86,11 +76,9 @@ const Navbar = () => {
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
-
           </summary>
 
           <ul className="menu dropdown-content z-50 mt-3 w-56 rounded-xl border border-slate-800 bg-[#111419] p-2 shadow-2xl">
-
             <li>
               <Link
                 href="/workouts"
@@ -114,11 +102,11 @@ const Navbar = () => {
             <li>
               <Link
                 href="/myplan"
-                className="flex items-center justify-between text-sm text-slate-300 hover:bg-white/5 hover:text-white"
+                className="flex items-end justify-between text-sm text-slate-300 hover:bg-white/5 hover:text-white"
               >
                 <span>Plan</span>
 
-                <span className="badge badge-sm border-0 bg-lime-400 font-bold text-slate-950">
+                <span className="badge badge-sm border-0 bg-lime-100 font-bold text-slate-950">
                   0
                 </span>
               </Link>
@@ -126,8 +114,8 @@ const Navbar = () => {
 
             <li>
               <Link
-                href="/saved"
-                className="flex items-center justify-between text-sm text-slate-300 hover:bg-white/5 hover:text-white"
+                href="/myplan"
+                className="flex items-center justify-between text-sm text-slate-400 hover:bg-white/5 hover:text-white"
               >
                 <span>Saved</span>
 
@@ -136,11 +124,8 @@ const Navbar = () => {
                 </span>
               </Link>
             </li>
-
           </ul>
-
         </details>
-
       </nav>
     </header>
   );
